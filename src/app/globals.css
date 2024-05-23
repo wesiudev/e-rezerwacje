@@ -1,0 +1,163 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+span {
+  background-color: inherit !important;
+  @apply mt-4;
+}
+p {
+  width: 100%;
+  margin-top: 10px;
+}
+p > a {
+  color: rgb(59 130 246) !important;
+}
+p > a:hover {
+  color: rgb(29 78 216) !important;
+  text-decoration: underline;
+}
+.line {
+  fill: none;
+  stroke: #000;
+  stroke-width: 4;
+  transition: stroke-dasharray 600ms cubic-bezier(0.4, 0, 0.2, 1),
+    stroke-dashoffset 600ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+.line1 {
+  stroke-dasharray: 60 207;
+  stroke-width: 4;
+}
+.line2 {
+  stroke-dasharray: 60 60;
+  stroke-width: 4;
+}
+.line3 {
+  stroke-dasharray: 60 207;
+  stroke-width: 4;
+}
+.opened .line1 {
+  stroke-dasharray: 90 207;
+  stroke-dashoffset: -134;
+  stroke-width: 4;
+}
+.opened .line2 {
+  stroke-dasharray: 1 60;
+  stroke-dashoffset: -30;
+  stroke-width: 4;
+}
+.opened .line3 {
+  stroke-dasharray: 90 207;
+  stroke-dashoffset: -134;
+  stroke-width: 4;
+}
+.scrollbar::-webkit-scrollbar {
+  width: 15px;
+  height: 20px;
+  background-color: rgb(230, 230, 230);
+  padding: 2px;
+  margin: 2px;
+}
+
+.scrollbar::-webkit-scrollbar-thumb {
+  background: black;
+  padding: 2px;
+}
+
+.scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #666666;
+}
+.hover-underline-animation {
+  display: inline-block;
+  position: relative;
+}
+.hover-underline-animation:after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  transform: scaleX(0);
+  height: 3px;
+  top: -1px;
+  left: 0;
+  background-color: #020bb0;
+  transform-origin: bottom right;
+  transition: transform 0.25s ease-out;
+}
+.hover-underline-animation:hover:after {
+  transform: scaleX(1);
+  transform-origin: bottom left;
+}
+.add_content_btn {
+  @apply bg-white text-zinc-800 font-bold py-2 px-4  cursor-pointer border-dashed border-zinc-800 border-2 w-full hover:bg-gray-300 duration-300;
+}
+.add_image_btn {
+  @apply bg-white text-zinc-800 font-bold py-2 px-4  cursor-pointer border-dashed border-zinc-800 border-2 w-full aspect-square hover:bg-gray-300 duration-300;
+}
+.icon-link {
+  @apply flex flex-row items-center;
+}
+.icon {
+  @apply h-4 w-4 mr-3;
+}
+.text-square {
+  @apply text-justify;
+}
+@keyframes moveFromTop {
+  0% {
+    transform: translateY(-50%) translateX(-100%);
+  }
+  100% {
+    transform: translateY(100%) translateX(-100%);
+  }
+}
+
+.animation-move-to-bottom {
+  animation: moveFromTop 0.3s ease-in-out forwards;
+}
+
+body {
+  font-family: "Roboto", sans-serif;
+  width: 100%;
+  margin: 0;
+}
+
+.three__wrapper:hover svg {
+  fill: #f5cb22;
+}
+
+.three__wrapper:hover svg {
+  transition: all 0.65s;
+  transform: rotateY(360deg);
+}
+.svg__wrapper {
+  @apply h-full p-6 sm:p-8 lg:py-20 xl:py-20 xl:p-12;
+}
+
+.three__wrapper p {
+  color: #8a8a8a;
+  text-align: center;
+  @apply text-base lg:text-sm xl:text-base;
+}
+@keyframes slide-left-to-right {
+  0% {
+    transform: translateX(-10px), rotate(10deg);
+    scale: 1.1;
+  }
+  50% {
+    scale: 0.9;
+    transform: translateX(10px);
+  }
+  100% {
+    scale: 1.1;
+    transform: translateX(-10px), rotate(-10deg);
+  }
+}
+
+.animate-left-to-right {
+  animation: slide-left-to-right 15s ease-in-out infinite;
+}
