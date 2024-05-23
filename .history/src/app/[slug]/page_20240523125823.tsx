@@ -2,6 +2,7 @@ import { getProductByUrl, getProducts } from "@/firebase";
 import { renderMarkdown } from "../../../lib/parseMarkdown";
 import Image from "next/image";
 import { FaImage } from "react-icons/fa";
+
 import Contact from "@/components/Contact";
 import UnderHeaderInfo from "../(dashboard)/components/Header/UnderHeaderInfo";
 import ContactInfo from "../(dashboard)/components/Header/ContactInfo";

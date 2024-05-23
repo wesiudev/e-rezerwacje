@@ -2,11 +2,13 @@ import { getProductByUrl, getProducts } from "@/firebase";
 import { renderMarkdown } from "../../../lib/parseMarkdown";
 import Image from "next/image";
 import { FaImage } from "react-icons/fa";
+
 import Contact from "@/components/Contact";
 import UnderHeaderInfo from "../(dashboard)/components/Header/UnderHeaderInfo";
 import ContactInfo from "../(dashboard)/components/Header/ContactInfo";
 import Header from "../(dashboard)/components/Header";
 import ThreeHoverableElements from "../(dashboard)/components/MainPageComponents/ThreeHoverableElements";
+import ImageGridWithPreview from "../(dashboard)/components/MainPageComponents/CaseStudies/ImageGridWithPreview";
 import GetQuote from "../(dashboard)/components/MainPageComponents/GetQuote";
 import DraggableProductList from "../(dashboard)/components/DraggableProductList";
 import Footer from "@/components/Footer";
@@ -180,6 +182,16 @@ export default async function Page({ params }: { params: any }) {
             </h2>
           )}
           <div className="mt-12" />
+          <ImageGridWithPreview
+            isHomePage={false}
+            caseStudiesList={product?.images
+              ?.filter(
+                (image: any) =>
+                  image.src !== product.primaryImage &&
+                  image.src !== product.secondaryImage
+              )
+              ?.map((image: any, i: any) => image.src)}
+          />
         </div>
       )}
       <div className={`${product?.images?.length > 0 && "mt-24"}`}>
