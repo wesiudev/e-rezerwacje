@@ -20,7 +20,7 @@ export default function MainHero() {
         </Link>
       </div>
       <div className="flex w-full xl:justify-center justify-center lg:justify-end relative">
-        <div className="w-max relative mt-24 lg:mt-0">
+        <div className="w-max relative">
           <div className="absolute w-[160px] h-[30px] z-[99] bg-black rounded-full opacity-10 -bottom-[50px] translate-x-2/3 animate-left-to-right"></div>
           <Image
             src="/calendar.png"

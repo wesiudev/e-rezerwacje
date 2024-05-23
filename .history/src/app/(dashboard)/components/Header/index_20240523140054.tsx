@@ -133,7 +133,7 @@ export default function Header({ products }: { products: any[] }) {
       <div
         className={`fixed w-full max-h-[88vh] overflow-y-scroll pb-20 top-0 left-0 bg-gray-300 bg-opacity-90 xl:space-x-3 xl:-ml-3 font-semibold shadow-black ${
           productsOpen
-            ? "translate-y-[80px] sm:translate-y-[80px] lg:translate-y-[86px] opacity-100 z-[500]"
+            ? "translate-y-[102px] lg:translate-y-[128px] opacity-100 z-[500]"
             : "z-[-10] opacity-0"
         } duration-300 pb-7 scrollbar xl:hidden`}
       >

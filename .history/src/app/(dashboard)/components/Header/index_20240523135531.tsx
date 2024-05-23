@@ -133,7 +133,7 @@ export default function Header({ products }: { products: any[] }) {
       <div
         className={`fixed w-full max-h-[88vh] overflow-y-scroll pb-20 top-0 left-0 bg-gray-300 bg-opacity-90 xl:space-x-3 xl:-ml-3 font-semibold shadow-black ${
           productsOpen
-            ? "translate-y-[80px] sm:translate-y-[80px] lg:translate-y-[86px] opacity-100 z-[500]"
+            ? "translate-y-[92px] lg:translate-y-[128px] opacity-100 z-[500]"
             : "z-[-10] opacity-0"
         } duration-300 pb-7 scrollbar xl:hidden`}
       >
@@ -226,7 +226,7 @@ export default function Header({ products }: { products: any[] }) {
           <div
             className={`fixed flex flex-col top-0 left-0 bg-white w-full h-max xl:w-auto xl:h-auto xl:flex-row items-center xl:space-x-3 xl:-ml-3 font-semibold shadow-black xl:relative py-3 space-y-3 xl:py-0 xl:space-y-0 ${
               menuShow
-                ? "translate-y-[80px] sm:translate-y-[80px] lg:translate-y-[86px] xl:translate-y-0 z-10"
+                ? "translate-y-[96px] lg:translate-y-[128px] xl:translate-y-0 z-10"
                 : "z-[-10] xl:z-0 opacity-0 xl:opacity-100 -translate-y-[100%] xl:-translate-y-0"
             } duration-500`}
           >

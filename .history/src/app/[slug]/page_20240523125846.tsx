@@ -6,6 +6,7 @@ import Contact from "@/components/Contact";
 import UnderHeaderInfo from "../(dashboard)/components/Header/UnderHeaderInfo";
 import ContactInfo from "../(dashboard)/components/Header/ContactInfo";
 import Header from "../(dashboard)/components/Header";
+import ThreeHoverableElements from "../(dashboard)/components/MainPageComponents/ThreeHoverableElements";
 import GetQuote from "../(dashboard)/components/MainPageComponents/GetQuote";
 import DraggableProductList from "../(dashboard)/components/DraggableProductList";
 import Footer from "@/components/Footer";
@@ -134,6 +135,7 @@ export default async function Page({ params }: { params: any }) {
         </div>
         <Contact />
       </div>
+      <ThreeHoverableElements />
       {product?.secondaryImage !== "" &&
         product?.text4Title !== "" &&
         product?.text4Desc !== "" && (
@@ -183,7 +185,12 @@ export default async function Page({ params }: { params: any }) {
       <div className={`${product?.images?.length > 0 && "mt-24"}`}>
         <GetQuote />
       </div>
-
+      <div className="pl-4 md:pl-8 lg:pl-12 xl:pl-20 2xl:pl-32 pb-24 w-full">
+        <h2 className="text-3xl font-bold text-left mt-24 mb-12 font-cocobold drop-shadow-xl shadow-black text-zinc-800">
+          Zobacz też
+        </h2>
+        <DraggableProductList products={otherProducts} />
+      </div>
       <Footer products={products} />
     </>
   );
