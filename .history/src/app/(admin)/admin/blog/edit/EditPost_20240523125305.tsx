@@ -1,24 +1,23 @@
 "use client";
-import { renderMarkdown } from "@/app/utils/parseMarkdown";
-import { polishToEnglish } from "@/app/utils/polishToEnglish";
 import { updateBlogPost } from "@/firebase";
-import Link from "next/link";
 import { useState } from "react";
-import { FaLink, FaLongArrowAltLeft, FaTrash } from "react-icons/fa";
+import { FaLink, FaLongArrowAltLeft } from "react-icons/fa";
 import * as Scroll from "react-scroll";
 import PostImages from "./PostImages";
-import { Post } from "@/types";
 import EditSection from "./EditSection";
 import { EditorState } from "draft-js";
 import SectionContentEditor from "../new/PostSections/SectionContentEditor";
 import SectionsList from "../new/PostSections/SectionsList";
+import { polishToEnglish } from "../../../../../../lib/polishToEnglish";
+import { renderMarkdown } from "../../../../../../lib/parseMarkdown";
 export default function EditPost({
   selectedPost,
   setSelectedPost,
 }: {
-  selectedPost: Post;
+  selectedPost: any;
   setSelectedPost: Function;
 }) {
+  const [isAdded, setIsAdded] = useState(false);
   const [sectionInput, setSectionInput] = useState("");
   const [sectionContent, setSectionContent] = useState("");
   const [selectedSection, setSelectedSection] = useState({
@@ -26,7 +25,6 @@ export default function EditPost({
     content: EditorState.createEmpty(),
     id: 0,
   });
-  const [tagInput, setTagInput] = useState("");
   const [messageVisible, setMessageVisible] = useState(false);
   const addSection = (value: string) => {
     setSelectedPost((prevInput: any) => ({
@@ -35,12 +33,6 @@ export default function EditPost({
         ...prevInput.sections,
         { title: value, content: sectionContent },
       ],
-    }));
-  };
-  const addTag = () => {
-    setSelectedPost((prevInput: any) => ({
-      ...prevInput,
-      tags: [...prevInput.tags, { name: `#${tagInput}` }],
     }));
   };
 
@@ -54,11 +46,7 @@ export default function EditPost({
     newSections.splice(idx, 1);
     setSelectedPost({ ...selectedPost, sections: newSections });
   };
-  const removeTag = (idx: number) => {
-    const newTags = [...selectedPost.tags];
-    newTags.splice(idx, 1);
-    setSelectedPost({ ...selectedPost, tags: newTags });
-  };
+
   const [sectionEditorOpen, setSectionEditorOpen] = useState(true);
 
   return (
@@ -214,51 +202,18 @@ export default function EditPost({
               type="text"
             />
           </div>
-          <div className="flex flex-col ">
-            <div>Utwórz tagi</div>
-            <div className="relative h-max w-max">
-              <div className="absolute left-2 top-[53%] -translate-y-[50%] text-gray-700 select-none placeholder:text-gray-500">
-                #
-              </div>
-              <input
-                placeholder="Wpisz tekst..."
-                value={tagInput}
-                onChange={(e) => setTagInput(e.target.value)}
-                className="!text-black  bg-slate-400 mt-1 p-2 pl-6 outline-none placeholder:text-gray-500"
-                type="text"
-              />
-            </div>
-            <button
-              value={tagInput}
-              onClick={() => {
-                addTag();
-                setTagInput("");
-              }}
-              className="!text-lg w-full bg-blue-500 hover:bg-blue-700 duration-200 text-white flex flex-row items-center justify-center mt-3 outline-none py-2"
-            >
-              Dodaj
-            </button>
-            {selectedPost.tags.length > 0 && (
-              <h1 className="my-2">Twoje tagi:</h1>
-            )}
-            {selectedPost.tags.map((tag: any, i: number) => (
-              <div key={i} className="flex flex-row items-center">
-                {tag.name}
-                <button onClick={() => removeTag(i)} className="ml-3">
-                  <FaTrash />
-                </button>
-              </div>
-            ))}
-          </div>
 
           {selectedPost.url !== "" && (
             <button
               onClick={() => {
                 updateBlogPost(selectedPost.postId, selectedPost);
+                setIsAdded(true);
               }}
-              className="py-6 bg-green-500 text-2xl text-white hover:bg-green-400 duration-200"
+              disabled={isAdded}
+              className="disabled:cursor-not-allowed py-6 bg-green-500 text-2xl text-white hover:bg-green-400 duration-200"
             >
-              AKTUALIZUJ
+              {isAdded && "POMYŚLNIE ZAAKTUALIZOWANO"}
+              {!isAdded && "AKTUALIZUJ"}
             </button>
           )}
         </div>
@@ -314,17 +269,6 @@ export default function EditPost({
                 <h3 className="italic  leading-relaxed font-italic font-light">
                   {selectedPost.outro}
                 </h3>
-                <div className="-ml-6 flex flex-row space-x-6 flex-wrap items-start">
-                  {selectedPost.tags.map((tag: any, i: number) => (
-                    <Link
-                      className={`${i === 0 && "ml-6"}`}
-                      href={`/blog/?tag=${tag.name}`}
-                      key={i}
-                    >
-                      {tag.name}
-                    </Link>
-                  ))}
-                </div>
               </div>
             </div>
           </div>
