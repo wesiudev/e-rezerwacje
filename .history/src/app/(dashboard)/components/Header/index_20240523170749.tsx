@@ -233,7 +233,7 @@ export default function Header({ products }: { products: any[] }) {
             <div className="absolute left-0 top-0 h-2"></div>
             {destinations.map((item: any, i: any) => (
               <>
-                {i === 0 && (
+                {i === 1 && (
                   <div
                     onMouseEnter={() => {
                       width >= 1280 && handleMouseEnter();
