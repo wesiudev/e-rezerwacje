@@ -273,14 +273,6 @@ export default function Header({ products }: { products: any[] }) {
                 </Link>
               </>
             ))}
-            <div className={`w-max mx-auto h-full xl:py-12 group`}>
-              <Link
-                href="/dashboard"
-                className={`bg-[#72b901] hover:bg-[#72b901a8] text-white p-2 drop-shadow-sm duration-100 cursor-default `}
-              >
-                ZALOGUJ
-              </Link>{" "}
-            </div>
           </div>
         </div>
         {/* BUTTON FOR MOBILE */}

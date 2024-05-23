@@ -8,8 +8,6 @@ import { FaTag } from "react-icons/fa";
 import Loading from "./loading";
 import LoginPage from "./LoginPage";
 import UserInfo from "./UserInfo";
-import BookingDetails from "../components/bookings/BookingDetails";
-import Booking from "../components/bookings/Booking";
 
 export default function Dashboard() {
   moment.locale("pl");
@@ -35,22 +33,21 @@ export default function Dashboard() {
       {!user && !loading && <LoginPage />}
       {user ? (
         <div className="bg-gray-300 w-screen min-h-screen px-6 md:px-8 xl:px-32 font-sans py-12">
-          {openedBooking && (
+          {/* {openedBooking && (
             <BookingDetails
               setOpenedBooking={setOpenedBooking}
               booking={openedBooking}
-              // bookings={bookings}
+              bookings={bookings}
               setShouldRefresh={setShouldRefresh}
               shouldRefresh={shouldRefresh}
             />
-          )}
+          )} */}
           <UserInfo loggedUser={userData?.loggedUser} />
           <div className="mt-12 grid grid-cols-1 lg:grid-cols-2 gap-3 ">
             <div className="bg-white rounded-xl shadow-sm shadow-black ">
               <h2 className="text-2xl xl:text-3xl font-bold text-center bg-black text-white rounded-t-xl p-3">
                 Rezerwacje
               </h2>
-              <Booking />
               {/* <BookingsButtons
                 setBookingView={setBookingView}
                 bookingView={bookingView}
@@ -107,6 +104,32 @@ export default function Dashboard() {
               <h2 className="text-2xl xl:text-3xl font-bold mb-3 text-center bg-black text-white rounded-t-xl p-3">
                 Kody promocyjne
               </h2>
+              {!userData?.loggedUser?.coupons.length && (
+                <div className="text-center flex h-full py-12 items-center justify-center px-4 sm:px-12 lg:px-24 xl:px-36">
+                  Tu znajdą się Twoje kody promocyjne za zapraszanie znajomych i
+                  skompletowane rezerwacje.
+                </div>
+              )}
+              {userData?.loggedUser?.coupons?.length > 0 && (
+                <div className="px-3">
+                  {userData?.loggedUser?.coupons?.map((item: any, i: any) => (
+                    <div
+                      key={i}
+                      className="flex flex-row items-center justify-between w-full p-3 py-3 bg-gray-300"
+                    >
+                      <div className="text-xl flex flex-row items-center">
+                        <FaTag className="text-gray-500 mr-2" />
+                        <span className="italic font-bold text-gray-600">
+                          20% zniżki
+                        </span>
+                      </div>{" "}
+                      <span className="bg-orange-500 text-white font-bold text-xl p-2 rounded-xl px-3">
+                        {item.value}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
           </div>
         </div>

@@ -9,7 +9,6 @@ import Loading from "./loading";
 import LoginPage from "./LoginPage";
 import UserInfo from "./UserInfo";
 import BookingDetails from "../components/bookings/BookingDetails";
-import Booking from "../components/bookings/Booking";
 
 export default function Dashboard() {
   moment.locale("pl");
@@ -50,7 +49,6 @@ export default function Dashboard() {
               <h2 className="text-2xl xl:text-3xl font-bold text-center bg-black text-white rounded-t-xl p-3">
                 Rezerwacje
               </h2>
-              <Booking />
               {/* <BookingsButtons
                 setBookingView={setBookingView}
                 bookingView={bookingView}

@@ -15,7 +15,9 @@ import Toast from "@/components/Toast";
 export default function LoginPage() {
   const router = useRouter();
   const [userData, setUserData] = useState({
+    phone: "",
     password: "",
+    passwordRepeat: "",
     email: "",
   });
   function signIn() {

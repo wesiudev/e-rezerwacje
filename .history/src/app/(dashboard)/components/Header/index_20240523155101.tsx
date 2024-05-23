@@ -259,7 +259,14 @@ export default function Header({ products }: { products: any[] }) {
                     </button>{" "}
                   </div>
                 )}
-
+                <div className={`w-max mx-auto h-full xl:py-12 group`}>
+                  <Link
+                    href="/dashboard"
+                    className={`hovered:bg-[#72b901] bg-[#72b901a8] p-2 drop-shadow-sm duration-100 cursor-default `}
+                  >
+                    ZALOGUJ
+                  </Link>{" "}
+                </div>
                 <Link
                   key={i}
                   className={`hover:bg-[#74B901] hover:text-white p-2 group text-zinc-800 drop-shadow-sm duration-100 w-max`}
@@ -273,14 +280,6 @@ export default function Header({ products }: { products: any[] }) {
                 </Link>
               </>
             ))}
-            <div className={`w-max mx-auto h-full xl:py-12 group`}>
-              <Link
-                href="/dashboard"
-                className={`bg-[#72b901] hover:bg-[#72b901a8] text-white p-2 drop-shadow-sm duration-100 cursor-default `}
-              >
-                ZALOGUJ
-              </Link>{" "}
-            </div>
           </div>
         </div>
         {/* BUTTON FOR MOBILE */}

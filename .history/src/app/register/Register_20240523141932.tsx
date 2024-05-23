@@ -1,28 +1,26 @@
 "use client";
-import { toastUpdate } from "@/components/Toast/Toasts";
-import { addDocument, auth } from "@/firebase";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
 } from "firebase/auth";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { addDocument, auth } from "@/firebase";
 import { toast } from "react-toastify";
-import { errorCatcher } from "../../../../lib/errorCatcher";
+import { toastUpdate } from "@/components/Toast/Toasts";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { errorCatcher } from "../../../lib/errorCatcher";
 import Toast from "@/components/Toast";
-
-export default function LoginPage() {
+import moment from "moment";
+export default function Register() {
   const router = useRouter();
   const [userData, setUserData] = useState({
     password: "",
+    repeatPassword: "",
     email: "",
   });
   function signIn() {
-    const id = toast.loading(<span>Loguję...</span>, {
-      autoClose: 5000,
-      closeOnClick: true,
-    });
+    const id = toast.loading(<span>Loguję...</span>);
     (async () => {
       try {
         await signInWithEmailAndPassword(
@@ -31,6 +29,7 @@ export default function LoginPage() {
           userData.password
         ).then((userCredential) => {
           toastUpdate("Sukces!", id, "success");
+
           router.push("/dashboard");
         });
       } catch (err: any) {
@@ -39,11 +38,49 @@ export default function LoginPage() {
       }
     })();
   }
+  function createAccount() {
+    const id = toast.loading(<span>Tworzę konto...</span>);
+    if (userData.password !== userData.repeatPassword) {
+      toastUpdate("Hasła nie są takie same", id, "error");
+      return;
+    }
+    if (userData.password?.length < 6) {
+      toastUpdate("Hasło jest za krótkie (minimum 6 znaków)", id, "error");
+      return;
+    }
+    if (!userData.email) {
+      toastUpdate("Proszę wpisać email", id, "error");
+      return;
+    }
+
+    (async () => {
+      try {
+        await createUserWithEmailAndPassword(
+          auth,
+          userData.email,
+          userData.password
+        ).then((userCredential) => {
+          addDocument("users", userCredential.user.uid, {
+            email: userData.email,
+            uid: userCredential.user.uid,
+            subscriptionExpirationDate: moment().add(3, "days"),
+          });
+          toastUpdate("Sukces!", id, "success");
+        });
+      } catch (err: any) {
+        const errorMsg = errorCatcher(err);
+        toastUpdate(errorMsg, id, "error");
+
+        router.push("/dashboard");
+      }
+    })();
+  }
+
   return (
     <div className="relative flex flex-col h-screen justify-center items-center bg-gray-100 overflow-hidden font-light">
       <Toast />
       <form className="flex flex-col w-full max-w-sm p-6 bg-white rounded-lg shadow-md relative z-50">
-        <label className="text-gray-700 font-bold mb-2" htmlFor="email">
+        <label className="text-gray-700 mb-2 font-bold" htmlFor="email">
           Email
         </label>
         <input
@@ -54,7 +91,7 @@ export default function LoginPage() {
           placeholder="Email"
           required
         />
-        <label className="text-gray-700 font-bold mb-2" htmlFor="password">
+        <label className="text-gray-700 mb-2 font-bold" htmlFor="password">
           Hasło
         </label>
         <input
@@ -65,24 +102,41 @@ export default function LoginPage() {
             setUserData({ ...userData, password: e.target.value })
           }
           className="border border-gray-400 p-2 mb-4 rounded-md focus:outline-none focus:ring-2 focus:ring-[#74b900]"
-          placeholder="Wpisz hasło"
+          placeholder="Hasło"
+          required
+        />
+        <label
+          className="text-gray-700 mb-2 font-bold"
+          htmlFor="repeatPassword"
+        >
+          Powtórz Hasło
+        </label>
+        <input
+          id="repeatPassword"
+          type="password"
+          value={userData.repeatPassword}
+          onChange={(e) =>
+            setUserData({ ...userData, repeatPassword: e.target.value })
+          }
+          className="border border-gray-400 p-2 mb-4 rounded-md focus:outline-none focus:ring-2 focus:ring-[#74b900]"
+          placeholder="Powtórz hasło"
           required
         />
 
         <button
           onClick={(e) => {
             e.preventDefault();
-            signIn();
+            createAccount();
           }}
           type="submit"
           className="bg-[#74b900] text-white py-2 rounded-md hover:bg-[#75b900c4] focus:outline-none focus:ring-2 focus:ring-[#75b900c4]"
         >
-          Login
+          Rejestracja
         </button>
         <div className="mt-2">
-          Nie posiadasz konta?{" "}
-          <Link href="/register" className="text-[#009ce7]">
-            Zarejestruj się
+          Posiadasz już konto?{" "}
+          <Link href="/dashboard" className="text-[#009ce7]">
+            Zaloguj się
           </Link>
         </div>
       </form>{" "}

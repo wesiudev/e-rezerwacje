@@ -8,8 +8,6 @@ import { FaTag } from "react-icons/fa";
 import Loading from "./loading";
 import LoginPage from "./LoginPage";
 import UserInfo from "./UserInfo";
-import BookingDetails from "../components/bookings/BookingDetails";
-import Booking from "../components/bookings/Booking";
 
 export default function Dashboard() {
   moment.locale("pl");
@@ -35,22 +33,21 @@ export default function Dashboard() {
       {!user && !loading && <LoginPage />}
       {user ? (
         <div className="bg-gray-300 w-screen min-h-screen px-6 md:px-8 xl:px-32 font-sans py-12">
-          {openedBooking && (
+          {/* {openedBooking && (
             <BookingDetails
               setOpenedBooking={setOpenedBooking}
               booking={openedBooking}
-              // bookings={bookings}
+              bookings={bookings}
               setShouldRefresh={setShouldRefresh}
               shouldRefresh={shouldRefresh}
             />
-          )}
+          )} */}
           <UserInfo loggedUser={userData?.loggedUser} />
           <div className="mt-12 grid grid-cols-1 lg:grid-cols-2 gap-3 ">
             <div className="bg-white rounded-xl shadow-sm shadow-black ">
               <h2 className="text-2xl xl:text-3xl font-bold text-center bg-black text-white rounded-t-xl p-3">
                 Rezerwacje
               </h2>
-              <Booking />
               {/* <BookingsButtons
                 setBookingView={setBookingView}
                 bookingView={bookingView}

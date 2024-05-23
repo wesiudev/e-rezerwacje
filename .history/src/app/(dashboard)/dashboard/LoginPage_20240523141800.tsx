@@ -16,6 +16,7 @@ export default function LoginPage() {
   const router = useRouter();
   const [userData, setUserData] = useState({
     password: "",
+    passwordRepeat: "",
     email: "",
   });
   function signIn() {
