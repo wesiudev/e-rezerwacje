@@ -67,7 +67,7 @@ export default function Products({
                 !isSelectMode &&
                   place === "drafts" &&
                   router.push(`/admin/products/drafts/${item.id}`);
-                isSelectMode && !chosenRows.includes(item.id)
+                isSelectMode && !chosenRows?.includes(item.id)
                   ? setChosenRows([...chosenRows, item.id])
                   : setChosenRows(chosenRows.filter((id) => id !== item.id));
               }}
@@ -75,7 +75,7 @@ export default function Products({
               className={`border-2 border-transparent flex flex-row p-0.5 text-zinc-800 relative h-12 w-full group border-dashed ${
                 isSelectMode ? "hover:border-white" : ""
               } ${
-                chosenRows.includes(item.id) && isSelectMode
+                chosenRows?.includes(item.id) && isSelectMode
                   ? "!border-green-500"
                   : ""
               }`}

@@ -37,8 +37,8 @@ export default function PickNewDate({
     for (let day = 0; day < 31; day++) {
       if (currentDate.month() === currentMonth) {
         if (
-          !currentDate.format("DD dddd").includes("niedziela") &&
-          !currentDate.format("DD dddd").includes("sobota")
+          !currentDate.format("DD dddd")?.includes("niedziela") &&
+          !currentDate.format("DD dddd")?.includes("sobota")
         ) {
           days.push({
             day: currentDate.format("DD dddd"),
@@ -99,8 +99,8 @@ export default function PickNewDate({
     //       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-2 xl:grid-cols-3 gap-1">
     //         {weekData.days.map((day, dayIndex) => (
     //           <>
-    //             {!day.day.includes("niedziela") &&
-    //               !day.day.includes("sobota") && (
+    //             {!day.day?.includes("niedziela") &&
+    //               !day.day?.includes("sobota") && (
     //                 <div key={dayIndex} className="flex flex-col relative">
     //                   <button
     //                     onClick={() => {

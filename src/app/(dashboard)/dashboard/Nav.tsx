@@ -96,7 +96,7 @@ export default function Nav({
                   <button
                     onClick={() => {
                       if (item.expandable) {
-                        if (expandedItems.includes(index as never)) {
+                        if (expandedItems?.includes(index as never)) {
                           setExpandedItems(
                             expandedItems.filter((i) => i !== index)
                           );
@@ -108,7 +108,7 @@ export default function Nav({
                     className={`${
                       item.expandable ? "cursor-pointer" : ""
                     } flex items-center justify-between py-2 px-4 rounded-md hover:bg-[#2F313C] w-full  ${
-                      expandedItems.includes(index as never)
+                      expandedItems?.includes(index as never)
                         ? "bg-[#2F313C]"
                         : "bg-[#222430]"
                     }`}
@@ -123,7 +123,7 @@ export default function Nav({
                           event.preventDefault();
                           event.stopPropagation();
                           if (item.expandable) {
-                            if (expandedItems.includes(index as never)) {
+                            if (expandedItems?.includes(index as never)) {
                               setExpandedItems(
                                 expandedItems.filter((i) => i !== index)
                               );
@@ -139,7 +139,7 @@ export default function Nav({
                       >
                         <FaChevronDown
                           className={`duration-300 ${
-                            expandedItems.includes(index as never)
+                            expandedItems?.includes(index as never)
                               ? "rotate-180"
                               : "rotate-0"
                           }`}
@@ -149,7 +149,7 @@ export default function Nav({
                   </button>
                 </Link>
 
-                {item.expandable && expandedItems.includes(index as never) && (
+                {item.expandable && expandedItems?.includes(index as never) && (
                   <ul className=" bg-[#222430]  py-2 px-4 w-full">
                     {item.subItems.map((subItem, subIndex) => (
                       <li key={subIndex}>

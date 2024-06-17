@@ -32,7 +32,7 @@ export default function HtmlInput({
 
     setProduct({
       ...product,
-      [title]: !content.toString().includes("<p></p>") ? content : "",
+      [title]: !content.toString()?.includes("<p></p>") ? content : "",
     });
   };
 

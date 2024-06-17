@@ -9,7 +9,7 @@ export default function LoginPage() {
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   function emailPasswordLogin() {
-    if (email.includes("@") && email.includes(".")) {
+    if (email?.includes("@") && email?.includes(".")) {
       signInWithEmailAndPassword(auth2, email, password)
         .then((userCredential) => {})
         .catch((error) => {
@@ -20,7 +20,7 @@ export default function LoginPage() {
             }, 7500);
           }
         });
-    } else if (!email.includes("@") || !email.includes(".")) {
+    } else if (!email?.includes("@") || !email?.includes(".")) {
       setEmailError("Wpisz poprawny login");
       setTimeout(() => {
         setEmailError("");
