@@ -42,7 +42,6 @@ export default function Register() {
             email: userData.email,
             uid: userCredential.user.uid,
             subscriptionExpirationDate: new Date(),
-            userWeeks: [],
           });
           toastUpdate("Sukces!", id, "success");
         });
