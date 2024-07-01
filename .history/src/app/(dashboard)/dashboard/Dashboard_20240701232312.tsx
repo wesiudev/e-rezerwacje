@@ -11,7 +11,6 @@ import BookingDetails from "../components/bookings/BookingDetails";
 import Booking from "../components/bookings/Booking";
 import { collection, getFirestore, onSnapshot } from "firebase/firestore";
 import ChooseHoursInADay from "./ChooseHoursInADay";
-import { FaInfoCircle } from "react-icons/fa";
 
 export default function Dashboard() {
   moment.locale("pl");
@@ -36,10 +35,10 @@ export default function Dashboard() {
   }, [loading]);
 
   return (
-    <div>
+    <>
       {!user && !loading && <LoginPage />}
       {user ? (
-        <div className="bg-gray-300 w-full min-h-screen px-6 md:px-8 xl:px-32 font-gotham py-12">
+        <div className="bg-gray-300 w-full min-h-screen px-6 md:px-8 xl:px-32 font-sans py-12">
           {openedBooking && (
             <BookingDetails
               setOpenedBooking={setOpenedBooking}
@@ -86,32 +85,26 @@ export default function Dashboard() {
                   </button>
                 ))}{" "}
               </div>
-              <h2 className="px-3 text-zinc-800 font-bold drop-shadow-lg shadow-black text-2xl">
+              <h2 className="text-2xl xl:text-3xl font-bold px-3">
                 Dostępne godziny
               </h2>
-              {userData?.userHours.filter((day: any) => day.hours.length > 0)
-                .length === 0 && (
-                <div className="bg-zinc-800 text-white font-light font-gotham p-3 drop-shadow-lg shadow-black flex items-center mx-3 mt-3">
-                  <div className="w-12 h-12 bg-white bg-opacity-10 rounded-lg mr-4 flex items-center justify-center">
-                    <FaInfoCircle className="text-green-500 h-6 w-6" />
-                  </div>
-                  Ustaw godziny w których chcesz przyjmować swoich klientów
-                  klikając w dany dzień.
-                </div>
-              )}
-              <div className="duration-500 mb-12 flex flex-wrap space-x-3 space-y-3">
+              <div className="mb-12 flex flex-wrap space-x-3 space-y-3">
                 {userData?.userHours?.map((dayWithHours: any, i: any) => (
                   <button
-                    onClick={() => setDay(dayWithHours)}
+                    onClick={() =>
+                      console.log(
+                        userData?.userHours.find(
+                          (d: any) => d.name === dayWithHours
+                        )
+                      )
+                    }
                     key={i}
-                    className={`${i === 0 && "mt-3 ml-3"} ${
-                      userData?.userWeeks?.includes(dayWithHours.name)
-                        ? "relative opacity-100"
-                        : "fixed -left-[1000px] -top-[1000px] opacity-0 w-[px]"
-                    } duration-500 text-white font-bold bg-blue-500`}
+                    className={`${
+                      i === 0 && "mt-3 ml-3"
+                    } text-white font-bold bg-blue-500 relative`}
                   >
                     <div className="px-3 py-1">{dayWithHours.name}</div>
-                    {userData?.userHours[i].name === dayWithHours.name && (
+                    {userData?.userHours[i].name === dayWithHours && (
                       <>
                         {userData?.userHours[i]?.hours?.length === 0 && (
                           <div className="px-2 py-1 w-full bottom-0 left-0 text-sm bg-red-500 text-white font-bold">
@@ -138,7 +131,7 @@ export default function Dashboard() {
           user={userData}
         />
       )}
-    </div>
+    </>
   );
 }
 

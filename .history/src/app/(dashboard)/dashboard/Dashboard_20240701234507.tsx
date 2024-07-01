@@ -15,22 +15,23 @@ import ChooseHoursInADay from "./ChooseHoursInADay";
 export default function Dashboard() {
   moment.locale("pl");
   const [user, loading] = useAuthState(auth);
-  const [
-    choosingHoursInDayIndexedByNumber,
-    setChoosingHoursInDayIndexedByNumber,
-  ] = useState(-1);
+
   const [userData, setUserData] = useState<any>();
   const [openedBooking, setOpenedBooking] = useState<any>();
   const [shouldRefresh, setShouldRefresh] = useState(0);
+  const [day, setDay] = useState<any>();
   useEffect(() => {
-    const ref = collection(getFirestore(app), "users");
-    const unsub = onSnapshot(ref, (querySnapshot: any) => {
-      const snapshotData: any[] = [];
-      querySnapshot.forEach((doc: any) => {
-        snapshotData.push({ ...doc.data(), id: doc.id });
+    if (user) {
+      const ref = collection(getFirestore(app), "users");
+      const unsub = onSnapshot(ref, (querySnapshot: any) => {
+        const snapshotData: any[] = [];
+        querySnapshot.forEach((doc: any) => {
+          snapshotData.push({ ...doc.data(), id: doc.id });
+        });
+
+        setUserData(snapshotData.find((snap: any) => snap.id === user?.uid));
       });
-      setUserData(snapshotData.filter((doc) => doc.uid === user?.uid)[0]);
-    });
+    }
   }, [loading]);
 
   return (
@@ -51,10 +52,7 @@ export default function Dashboard() {
 
           <div className="mt-12 grid grid-cols-1 gap-3">
             <div className="bg-white rounded-xl shadow-sm shadow-black ">
-              <h2
-                onClick={() => userUpdate(userData?.uid, { userHours })}
-                className="text-2xl xl:text-3xl font-bold text-center bg-black text-white rounded-t-xl p-3"
-              >
+              <h2 className="text-2xl xl:text-3xl font-bold text-center bg-black text-white rounded-t-xl p-3">
                 Kalendarz
               </h2>
               <h2 className="text-2xl xl:text-3xl font-bold mt-6 px-3">
@@ -66,7 +64,7 @@ export default function Dashboard() {
                     onClick={() =>
                       userData?.userWeeks?.includes(day)
                         ? userUpdate(userData?.uid, {
-                            userWeeks: userData?.userWeeks.filter(
+                            userWeeks: userData?.userWeeks?.filter(
                               (d: any) => d !== day
                             ),
                           })
@@ -88,21 +86,23 @@ export default function Dashboard() {
                 ))}{" "}
               </div>
               <h2 className="text-2xl xl:text-3xl font-bold px-3">
-                Dostępne godziny
+                Dostępne godzinyaaaa
               </h2>
               <div className="mb-12 flex flex-wrap space-x-3 space-y-3">
-                {weekDays.map((day: any, i: any) => (
+                {userData?.userHours?.filter(
+                  (a: any, b: any) => a.name === b.day
+                )?.((dayWithHours: any, i: any) => (
                   <button
-                    onClick={() => setChoosingHoursInDayIndexedByNumber(i)}
+                    onClick={() => console.log(userData?.userHours)}
                     key={i}
                     className={`${
                       i === 0 && "mt-3 ml-3"
                     } text-white font-bold bg-blue-500 relative`}
                   >
-                    <div className="px-3 py-1">{day}</div>
-                    {userHours[i].name === day && (
+                    <div className="px-3 py-1">{dayWithHours.name}</div>
+                    {userData?.userHours[i].name === dayWithHours && (
                       <>
-                        {userHours[i].hours.length === 0 && (
+                        {userData?.userHours[i]?.hours?.length === 0 && (
                           <div className="px-2 py-1 w-full bottom-0 left-0 text-sm bg-red-500 text-white font-bold">
                             Brak godzin
                           </div>
@@ -119,13 +119,12 @@ export default function Dashboard() {
       ) : (
         <>{loading && <Loading />}</>
       )}
-      {choosingHoursInDayIndexedByNumber > -1 && (
+      {day !== "" && (
         <ChooseHoursInADay
-          setChoosingHoursInDayIndexedByNumber={
-            setChoosingHoursInDayIndexedByNumber
-          }
-          choosingHoursInDayIndexedByNumber={choosingHoursInDayIndexedByNumber}
-          userHours={userHours}
+          day={day}
+          setDay={setDay}
+          userHours={userData?.userHours}
+          user={userData}
         />
       )}
     </>
@@ -140,13 +139,4 @@ const weekDays = [
   "piątek",
   "sobota",
   "niedziela",
-];
-const userHours = [
-  { name: "poniedziałek", hours: ["14:30"], id: 0 },
-  { name: "wtorek", hours: [], id: 1 },
-  { name: "środa", hours: ["14:30"], id: 2 },
-  { name: "czwartek", hours: [], id: 3 },
-  { name: "piątek", hours: ["14:30"], id: 4 },
-  { name: "sobota", hours: ["14:30"], id: 5 },
-  { name: "niedziela", hours: ["14:30"], id: 6 },
 ];

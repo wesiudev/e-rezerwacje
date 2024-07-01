@@ -69,7 +69,11 @@ export default function MonthView({
       {weeks.map((weekData, idx) => (
         <div key={idx}>
           {weekData.days.length > 0 && (
-            <p className={`my-2 text-xl font-bold ${idx === 0 && "!mt-0"}`}>
+            <p
+              className={`text-zinc-800 my-2 text-xl font-bold ${
+                idx === 0 && "!mt-0"
+              }`}
+            >
               {capitalizeFirstLetter(weekData.monthName) +
                 " " +
                 weekData.days[0].year}
@@ -86,11 +90,7 @@ export default function MonthView({
                     className={`flex flex-col relative sm:ml-3 sm:mt-3`}
                   >
                     <button
-                      onClick={() => {
-                        console.log(
-                          day.day.toString()?.includes("poniedziałek")
-                        );
-                      }}
+                      onClick={() => {}}
                       className={`${
                         (
                           chosenService.time.month + chosenService.time.day.day

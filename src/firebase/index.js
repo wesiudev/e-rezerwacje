@@ -113,7 +113,6 @@ export async function getDraft(draftId) {
 }
 
 export async function updateDraft(draftId, updates) {
-  console.log(draftId);
   const draftDocRef = doc(db, "drafts", draftId);
   return await updateDoc(draftDocRef, updates);
 }

@@ -36,10 +36,10 @@ export default function Dashboard() {
   }, [loading]);
 
   return (
-    <div>
+    <>
       {!user && !loading && <LoginPage />}
       {user ? (
-        <div className="bg-gray-300 w-full min-h-screen px-6 md:px-8 xl:px-32 font-gotham py-12">
+        <div className="bg-gray-300 w-full min-h-screen px-6 md:px-8 xl:px-32 font-sans py-12">
           {openedBooking && (
             <BookingDetails
               setOpenedBooking={setOpenedBooking}
@@ -91,10 +91,8 @@ export default function Dashboard() {
               </h2>
               {userData?.userHours.filter((day: any) => day.hours.length > 0)
                 .length === 0 && (
-                <div className="bg-zinc-800 text-white font-light font-gotham p-3 drop-shadow-lg shadow-black flex items-center mx-3 mt-3">
-                  <div className="w-12 h-12 bg-white bg-opacity-10 rounded-lg mr-4 flex items-center justify-center">
-                    <FaInfoCircle className="text-green-500 h-6 w-6" />
-                  </div>
+                <div className="bg-zinc-800 text-white font-bold p-3 drop-shadow-lg shadow-black flex flex-row items-center">
+                  <FaInfoCircle className="text-green-500 mr-2" />
                   Ustaw godziny w których chcesz przyjmować swoich klientów
                   klikając w dany dzień.
                 </div>
@@ -138,7 +136,7 @@ export default function Dashboard() {
           user={userData}
         />
       )}
-    </div>
+    </>
   );
 }
 

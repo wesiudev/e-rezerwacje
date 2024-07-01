@@ -27,10 +27,7 @@ export default function ChooseHoursInADay({
         }}
       >
         <div className="w-[40rem] h-[70vh] overflow-y-scroll bg-white text-zinc-800 p-6 xl:p-12">
-          <h2
-            onClick={() => console.log(day)}
-            className="text-3xl font-bold text-zinc-800 drop-shadow-xl shadow-black w-full"
-          >
+          <h2 className="text-3xl font-bold text-zinc-800 drop-shadow-xl shadow-black w-full">
             Zarządzasz godzinami w dniu:{" "}
             <span className="text-green-500 font-bold">{day?.name}</span>
           </h2>

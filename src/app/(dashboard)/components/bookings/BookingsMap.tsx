@@ -13,17 +13,9 @@ export default function BookingsMap({
   bookingView: string;
   setOpenedBooking: Function;
 }) {
-  console.log(
-    bookings?.map((booking: any) => {
-      moment().isBefore(
-        convertToDate({
-          ...booking.time,
-          day: booking.time.day.day,
-          year: booking.time.day.year,
-        })
-      );
-    }).length
-  );
+  function openBookingDetails(booking: any) {
+    setOpenedBooking(booking);
+  }
 
   return (
     <div

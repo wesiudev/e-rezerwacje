@@ -86,11 +86,7 @@ export default function MonthView({
                     className={`flex flex-col relative sm:ml-3 sm:mt-3`}
                   >
                     <button
-                      onClick={() => {
-                        console.log(
-                          day.day.toString()?.includes("poniedziałek")
-                        );
-                      }}
+                      onClick={() => {}}
                       className={`${
                         (
                           chosenService.time.month + chosenService.time.day.day

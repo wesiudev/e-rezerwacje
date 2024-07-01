@@ -91,8 +91,8 @@ export default function Dashboard() {
               </h2>
               {userData?.userHours.filter((day: any) => day.hours.length > 0)
                 .length === 0 && (
-                <div className="bg-zinc-800 text-white font-light font-gotham p-3 drop-shadow-lg shadow-black flex items-center mx-3 mt-3">
-                  <div className="w-12 h-12 bg-white bg-opacity-10 rounded-lg mr-4 flex items-center justify-center">
+                <div className="bg-zinc-800 text-white font-light font-gotham p-3 drop-shadow-lg shadow-black flex items-center">
+                  <div className="w-12 h-12 bg-white bg-opacity-10 rounded-xl mr-4 flex items-center justify-center">
                     <FaInfoCircle className="text-green-500 h-6 w-6" />
                   </div>
                   Ustaw godziny w których chcesz przyjmować swoich klientów

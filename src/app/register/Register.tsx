@@ -43,6 +43,15 @@ export default function Register() {
             uid: userCredential.user.uid,
             subscriptionExpirationDate: new Date(),
             userWeeks: [],
+            userHours: [
+              { name: "poniedziałek", hours: [], id: 0 },
+              { name: "wtorek", hours: [], id: 1 },
+              { name: "środa", hours: [], id: 2 },
+              { name: "czwartek", hours: [], id: 3 },
+              { name: "piątek", hours: [], id: 4 },
+              { name: "sobota", hours: [], id: 5 },
+              { name: "niedziela", hours: [], id: 6 },
+            ],
           });
           toastUpdate("Sukces!", id, "success");
         });

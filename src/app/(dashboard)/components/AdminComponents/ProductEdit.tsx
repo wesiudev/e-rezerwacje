@@ -74,8 +74,7 @@ export default function ProductEdit({
     }
   }
   useEffect(() => {
-    if (!draftCreated && place === "new")
-      createDraft(product, product.id).then((res) => console.log(res));
+    if (!draftCreated && place === "new") createDraft(product, product.id);
     setDraftCreated(true);
   }, []);
   useEffect(() => {
